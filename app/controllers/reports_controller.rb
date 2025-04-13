@@ -2,10 +2,13 @@ class ReportsController < ApplicationController
     before_action :ensure_report_presence!, only: %i[show update destroy]
 
   def index
-    reports = Report.all
+    result = ReportsQuery.new(params).call
 
-    if reports.any?
-      render json: reports, status: :ok
+    if result[:reports].any?
+        render json: {
+            data: result[:reports],
+            meta: result[:meta]
+          }, status: :ok
     else
       render json: { error: "No reports found"  }, status: :not_found
     end
