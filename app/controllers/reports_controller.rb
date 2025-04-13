@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-    if report.update(report_params)
+    if report.update!(report_params)
       render json: report, status: :ok
     else
       render json: { errors: report.errors.full_messages }, status: :unprocessable_entity
@@ -41,25 +41,21 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    report.destroy
+    report.destroy!
     render json: { message: "Report successfully deleted" }, status: :no_content
   end
 
   private
 
   def ensure_report_presence!
-    :not_found if report.blank?
+    unless report
+     render json: { error: "Report not found" }, status: :not_found
+     nil
+    end
   end
 
   def report
-    report_id = params[:id].to_i
-
-    if report_id <= 0
-      render json: { error: "Invalid ID" }, status: :unprocessable_entity
-      return
-    end
-
-    @_report ||= Report.find_by(id: report_id)
+    @_report ||= Report.find_by(id: params[:id])
   end
 
   def report_params
