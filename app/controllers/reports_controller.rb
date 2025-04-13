@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
 
     if result[:reports].any?
         render json: {
-            data: result[:reports],
+            data: result[:reports].map { |report| ::ReportPresenter.new(report).as_json },
             meta: result[:meta]
           }, status: :ok
     else
