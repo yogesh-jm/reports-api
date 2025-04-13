@@ -9,8 +9,7 @@ class ReportsQuery
     page = params[:page].to_i > 0 ? params[:page].to_i : 1
     per_page = params[:per_page].to_i > 0 ? params[:per_page].to_i : 10
 
-    reports = Report.order(:id).offset((page - 1) * per_page).limit(per_page)
-    total_count = Report.count
+    reports = base_query.offset((page - 1) * per_page).limit(per_page)
 
     {
       reports: reports,
@@ -21,5 +20,15 @@ class ReportsQuery
         total_pages: (total_count.to_f / per_page).ceil
       }
     }
+  end
+
+  private
+
+  def base_query
+    Report.order(:id)
+  end
+
+  def total_count
+    @_total_count ||= base_query.count
   end
 end
