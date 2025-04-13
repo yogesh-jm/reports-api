@@ -24,7 +24,7 @@ A simple API-only Ruby on Rails application to perform CRUD operations on Report
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/reports-api.git
+git clone https://github.com/yogesh-jm/reports-api.git
 cd reports-api
 ```
 
