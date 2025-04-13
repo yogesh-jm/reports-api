@@ -80,3 +80,8 @@ curl -X GET http://localhost:3000/reports
 - Strong parameters are used to whitelist input data.
 - Includes basic error handling with appropriate HTTP status codes.
 - Supports basic pagination
+
+## ✅ Response
+![reports-response](https://github.com/user-attachments/assets/5b059f01-01b2-4c9d-8aa5-5d21750d395b)
+
+  
