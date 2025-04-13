@@ -1,13 +1,15 @@
 class ReportsQuery
   attr_reader :params
 
+  PAGINATION_LIMIT = 10
+
   def initialize(params)
     @params = params
   end
 
   def call
     page = params[:page].to_i > 0 ? params[:page].to_i : 1
-    per_page = params[:per_page].to_i > 0 ? params[:per_page].to_i : 10
+    per_page = params[:per_page].to_i > 0 ? params[:per_page].to_i : PAGINATION_LIMIT
 
     reports = base_query.offset((page - 1) * per_page).limit(per_page)
 
